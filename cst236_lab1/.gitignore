@@ -2,5 +2,5 @@
 *.pyc
 *.xml
 *.iml
-/source/*.pyc
-/test/*.pyc
+htmlcov*
+.coverage

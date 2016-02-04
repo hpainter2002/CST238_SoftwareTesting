@@ -3,9 +3,10 @@ Test for source.shape_checker
 """
 from source.shape_checker import get_triangle_type
 from unittest import TestCase
-from source.shape_checker import get_quadrilateral_type
+from source.shape_checker import get_quadrilateral_type, get_rectangle_type
 from test.plugins.ReqTracer import requirements
 from source.main import Interface
+
 
 def return_a_string():
     str1 = "My favorite color is black."
@@ -175,6 +176,15 @@ class TestGetTriangleType(TestCase):
 
 
 class TestGetQuadrilateralType(TestCase):
+
+# Rectangle Test
+    def test_get_rectangle_char_invalid(self):
+        result = get_rectangle_type('s', 'g', 'h', 'r')
+        self.assertEqual(result, 'invalid')
+
+    def test_get_rectangle_negative_invalid(self):
+        result = get_rectangle_type(-3, -4, -6, -1)
+        self.assertEqual(result, 'invalid')
 
 # Int test
     @requirements(['#0003', '#0004', '#0005'])
@@ -395,4 +405,19 @@ class QuestionAnswerTest(TestCase):
         new_interface.correct("My new favorite color is red")
         result = new_interface.ask("What is your favorite color?")
         self.assertEqual(result, "My new favorite color is red")
+
+    @requirements(['#0006', '#0007', '#0019'])
+    def test_ask_correct_no_question(self):
+        new_interface = Interface()
+        result = new_interface.correct("What am I happy for")
+        self.assertEqual(result, 'Please ask a question first')
+
+    def test_ask_not_a_string(self):
+        new_interface = Interface()
+        self.assertRaisesRegexp(Exception, "Not A String!", new_interface.ask, 2)
+
+    def test_ask_too_many_parameters(self):
+        new_interface = Interface()
+        self.assertRaisesRegexp(Exception, "Too many extra parameters", new_interface.ask, "What type of triangle is 1 2 3 4 5 6 7?")
+
 

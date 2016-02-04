@@ -39,3 +39,39 @@
 #0020 The system shall accept and store answers to previous questions in the form of a string or a function pointer and store it as the generator function.
 
 #0021 If no previous question has been asked the system shall respond with "Please ask a question first"
+
+* When I ask "What time is it?" I want to be given the current date/time so I can stay up to date
+
+* When I ask "What is the n digit of fibonacci?" I want to receive the answer so I don't have to figure it out myself
+
+* When I ask "What is the n digit of pi?" I want to receive the answer so I don't have to figure it out myself
+
+* When I ask "Please clear memory." I was the application to clear user set questions and answers so I can reset the application
+
+* When I say "Open the door hal!", I want the application to say "I'm afraid I can't do that <user name> so I know that is not an option
+
+* When I ask "Convert <number> <units> to <units>." I want to receive the converted value and units so I can know the answer.
+
+* When I ask for a numberic conversion I want at least 10 different units I can convert from/to
+
+* When I say "Please add num1 and num2." I want to receive the added result of two numbers.
+
+* When I say "Please subtract num1 and num2." I want to receive the subtracted result of two numbers.
+
+* When I say "Please divide num1 and num2." I want to receive the divided result of two numbers.
+
+* When I say "Please multiply num1 and num2." I want to receive the multiplied result of two numbers.
+
+* When I say "Please mod num1 and num2." I want to receive the moded result of two numbers.
+
+* When I ask "Are you happy?" I want to receive the answer "I'm always happy!"
+
+* When I ask "Where can I go to have a good time?" I want to receive the answer "Club".
+
+* When I ask "Which is the best restaurant around here?" I want to receive the answer "Use a search engine idiot!".
+
+* When I ask "What is my name?" I want to receive the answer "Your name is <username>".
+
+* When I ask "How is the weather going to be tomorrow?" I want to receive the answer "Check your weather app!"
+
+
