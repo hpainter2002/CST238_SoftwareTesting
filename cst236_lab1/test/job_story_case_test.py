@@ -344,7 +344,7 @@ class TestJobStories(TestCase):
     def test_your_name(self):
         new_interface = Interface()
         result = new_interface.ask("What is my name?")
-        self.assertEqual(result, "Your name is Hatim")
+        self.assertEqual(result, "Your name is " + getpass.getuser())
 
     @JobStory("When I ask \"How is the weather going to be tomorrow?\" I want to receive the answer \"Check your weather app!\"")
     def test_weather(self):
