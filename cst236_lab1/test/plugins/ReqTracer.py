@@ -45,7 +45,7 @@ def JobStory(story):
     return wrapper
 
 # with open('C:\\Users\\Hatim\\Documents\\GitHub\\HatimP\\cst236_lab1\\Lab_Requirements.txt') as f:
-with open(os.getcwd() + "\Lab_Requirements.txt") as f:
+with open(os.getcwd() + "/Lab_Requirements.txt") as f:
 
     for line in f.readlines():
         if '#0' in line:
