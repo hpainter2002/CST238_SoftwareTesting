@@ -1,0 +1,6 @@
+*.idea
+*.pyc
+*.xml
+*.iml
+htmlcov*
+.coverage
