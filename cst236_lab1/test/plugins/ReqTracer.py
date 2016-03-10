@@ -1,19 +1,26 @@
 import os
 
+#pylint: disable=C0111
+
 class RequirementTrace(object):
     req_text = ""
+
     def __init__(self, text):
         self.req_text = text
         self.func_name = []
 
+
 class JobSotryTrace(object):
     JobStory_text = ""
+
     def __init__(self, text):
         self.JobStory_text = text
         self.func_name = []
 
+
 Requirements = {}
 JobStories = []
+
 
 def requirements(req_list):
     def wrapper(func):
@@ -25,7 +32,9 @@ def requirements(req_list):
             return func(*args, **kwargs)
 
         return add_req_and_call
+
     return wrapper
+
 
 def JobStory(story):
     def wrapper(func):
@@ -44,9 +53,7 @@ def JobStory(story):
 
     return wrapper
 
-# with open('C:\\Users\\Hatim\\Documents\\GitHub\\HatimP\\cst236_lab1\\Lab_Requirements.txt') as f:
 with open(os.getcwd() + "/Lab_Requirements.txt") as f:
-
     for line in f.readlines():
         if '#0' in line:
             req_id, desc = line.split(' ', 1)
@@ -54,6 +61,3 @@ with open(os.getcwd() + "/Lab_Requirements.txt") as f:
         elif line.startswith("*"):
             garbage, text = line.split(' ', 1)
             JobStories.append(JobSotryTrace(text.strip()))
-
-
-

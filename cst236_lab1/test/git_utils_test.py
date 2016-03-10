@@ -1,9 +1,10 @@
-from unittest import TestCase
-from test.plugins.ReqTracer import requirements
-import source.git_utils
-import mock
 import os
+from unittest import TestCase
+
+import mock
+import source.git_utils
 from source.main import Interface
+from test.plugins.ReqTracer import requirements
 
 
 # pylint: disable=C0111
@@ -142,7 +143,7 @@ class TestGitUtils(TestCase):
         my_interface = Interface()
         mock_subproc_popen.return_value = process_mock
         result = my_interface.ask(
-            'What is the deal with <{}>?'.format(__file__))
+                'What is the deal with <{}>?'.format(__file__))
         self.assertEqual(result, '#AO56QU, 1/2/2016, HatimP')
 
     @requirements(['#0103'])
@@ -154,7 +155,7 @@ class TestGitUtils(TestCase):
         my_interface = Interface()
         mock_subproc_popen.return_value = process_mock
         result = my_interface.ask(
-            'What branch is <{}>?'.format(__file__))
+                'What branch is <{}>?'.format(__file__))
         self.assertEqual(result, 'master')
 
     @requirements(['#0104'])
@@ -166,7 +167,5 @@ class TestGitUtils(TestCase):
         my_interface = Interface()
         mock_subproc_popen.return_value = process_mock
         result = my_interface.ask(
-            'Where did <{}> come from?'.format(__file__))
+                'Where did <{}> come from?'.format(__file__))
         self.assertEqual(result, 'master')
-
-

@@ -1,20 +1,22 @@
 """
 Test for source.shape_checker
 """
-from source.shape_checker import get_triangle_type
 from unittest import TestCase
-from source.shape_checker import get_quadrilateral_type, get_rectangle_type
-from test.plugins.ReqTracer import requirements
-from source.main import Interface
 
+from source.main import Interface
+from source.shape_checker import get_quadrilateral_type, get_rectangle_type
+from source.shape_checker import get_triangle_type
+from test.plugins.ReqTracer import requirements
+
+#pylint: disable=C0111
 
 def return_a_string():
     str1 = "My favorite color is black."
     return str1
 
-class TestGetTriangleType(TestCase):
 
-# Int test
+class TestGetTriangleType(TestCase):
+    # Int test
     @requirements(['#0001', '#0002'])
     def test_get_triangle_equilateral_all_int(self):
         result = get_triangle_type(1, 1, 1)
@@ -30,7 +32,7 @@ class TestGetTriangleType(TestCase):
         result = get_triangle_type(4, 4, 5)
         self.assertEqual(result, 'isosceles')
 
-# Float test
+    # Float test
     @requirements(['#0001', '#0002'])
     def test_get_triangle_equilateral_all_float(self):
         result = get_triangle_type(2.0, 2.0, 2.0)
@@ -46,7 +48,7 @@ class TestGetTriangleType(TestCase):
         result = get_triangle_type(2.0, 2.0, 5.0)
         self.assertEqual(result, 'isosceles')
 
-# Char test
+    # Char test
     @requirements(['#0001', '#0002'])
     def test_get_triangle_equilateral_all_char(self):
         result = get_triangle_type('a', 'd', 'v')
@@ -62,7 +64,7 @@ class TestGetTriangleType(TestCase):
         result = get_triangle_type('q', 'r', 'n')
         self.assertEqual(result, 'invalid')
 
-# Float/Int combination test
+    # Float/Int combination test
     @requirements(['#0001', '#0002'])
     def test_get_triangle_equilateral_float_int_combo(self):
         result = get_triangle_type(2, 2.0, 2.0)
@@ -78,7 +80,7 @@ class TestGetTriangleType(TestCase):
         result = get_triangle_type(2.0, 2, 5)
         self.assertEqual(result, 'isosceles')
 
-# Tuples test
+    # Tuples test
     @requirements(['#0001'])
     def test_get_triangle_equilateral_tuple(self):
         tup1 = (2, 2, 2)
@@ -103,7 +105,7 @@ class TestGetTriangleType(TestCase):
         result = get_triangle_type(tup1)
         self.assertEqual(result, 'invalid')
 
-# List test
+    # List test
     @requirements(['#0001'])
     def test_get_triangle_equilateral_list(self):
         tup1 = [2, 2, 2]
@@ -128,32 +130,32 @@ class TestGetTriangleType(TestCase):
         result = get_triangle_type(tup1)
         self.assertEqual(result, 'invalid')
 
-# Dicionary test
+    # Dicionary test
     @requirements(['#0001'])
     def test_get_triangle_equilateral_dic(self):
-        dic1 = {'one' : 1, 'two' : 1, 'three' : 1}
+        dic1 = {'one': 1, 'two': 1, 'three': 1}
         result = get_triangle_type(dic1)
         self.assertEqual(result, 'equilateral')
 
     @requirements(['#0001'])
     def test_get_triangle_scalene_all_dic(self):
-        dic1 = {'one' : 1, 'two' : 2, 'three' : 3}
+        dic1 = {'one': 1, 'two': 2, 'three': 3}
         result = get_triangle_type(dic1)
         self.assertEqual(result, 'scalene')
 
     @requirements(['#0001'])
     def test_get_triangle_isosceles_all_dic(self):
-        dic1 = {'one' : 1, 'two' : 1, 'three' : 4}
+        dic1 = {'one': 1, 'two': 1, 'three': 4}
         result = get_triangle_type(dic1)
         self.assertEqual(result, 'isosceles')
 
     @requirements(['#0001'])
     def test_get_triangle_invalid_dic(self):
-        dic1 = {'one' : 1, 'two' : 1, 'three' : 1, 'four' : 5}
+        dic1 = {'one': 1, 'two': 1, 'three': 1, 'four': 5}
         result = get_triangle_type(dic1)
         self.assertEqual(result, 'invalid')
 
-# Zero and negative test
+    # Zero and negative test
     @requirements(['#0001', '#0001'])
     def test_get_triangle_zero_neg(self):
         result = get_triangle_type(0, -5, 2)
@@ -176,8 +178,7 @@ class TestGetTriangleType(TestCase):
 
 
 class TestGetQuadrilateralType(TestCase):
-
-# Rectangle Test
+    # Rectangle Test
     def test_get_rectangle_char_invalid(self):
         result = get_rectangle_type('s', 'g', 'h', 'r')
         self.assertEqual(result, 'invalid')
@@ -186,7 +187,7 @@ class TestGetQuadrilateralType(TestCase):
         result = get_rectangle_type(-3, -4, -6, -1)
         self.assertEqual(result, 'invalid')
 
-# Int test
+    # Int test
     @requirements(['#0003', '#0004', '#0005'])
     def test_get_quadrilateral_type_all_int(self):
         result = get_quadrilateral_type(2, 2, 2, 2, 90, 90, 90, 90)
@@ -212,7 +213,7 @@ class TestGetQuadrilateralType(TestCase):
         result = get_quadrilateral_type(1, 2, 1, 4, 180, 45, 45, 90)
         self.assertEqual(result, 'rhombus')
 
-# Float test
+    # Float test
     @requirements(['#0003', '#0004', '#0005'])
     def test_get_quadrilateral_type_all_float(self):
         result = get_quadrilateral_type(2.0, 2.0, 2.0, 2.0, 90.0, 90.0, 90.0, 90.0)
@@ -238,7 +239,7 @@ class TestGetQuadrilateralType(TestCase):
         result = get_quadrilateral_type(1.0, 2.0, 1.0, 4.0, 180.0, 45.0, 45.0, 90.0)
         self.assertEqual(result, 'rhombus')
 
-# Char test
+    # Char test
     @requirements(['#0003', '#0004', '#0005'])
     def test_get_quadrilateral_type_all_char(self):
         result = get_quadrilateral_type('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
@@ -264,7 +265,7 @@ class TestGetQuadrilateralType(TestCase):
         result = get_quadrilateral_type('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
         self.assertEqual(result, 'invalid')
 
-# Float/Int combination test
+    # Float/Int combination test
     @requirements(['#0003', '#0004', '#0005'])
     def test_get_quadrilateral_type_int_float_combo(self):
         result = get_quadrilateral_type(2, 2.0, 2, 2.0, 90, 90.0, 90, 90.0)
@@ -290,7 +291,7 @@ class TestGetQuadrilateralType(TestCase):
         result = get_quadrilateral_type(1.0, 2.0, 1, 4, 180, 45, 45.0, 90.0)
         self.assertEqual(result, 'rhombus')
 
-# Zero and negative test
+    # Zero and negative test
     @requirements(['#0003', '#0004', '#0005'])
     def test_get_quadrilateral_type_neg_zero_combo(self):
         result = get_quadrilateral_type(0, 2.0, 2, -90, 90, -90.0, 0, 90.0)
@@ -306,8 +307,8 @@ class TestGetQuadrilateralType(TestCase):
         result = get_quadrilateral_type(-2.0, -7, -9, -89, -65, -90.0, -180, -90.0)
         self.assertEqual(result, 'invalid')
 
-class QuestionAnswerTest(TestCase):
 
+class QuestionAnswerTest(TestCase):
     @requirements(['#0001', '#0006', '#0007', '#0012', '#0013'])
     def test_ask_question_equilateral(self):
         new_interface = Interface()
@@ -418,6 +419,5 @@ class QuestionAnswerTest(TestCase):
 
     def test_ask_too_many_parameters(self):
         new_interface = Interface()
-        self.assertRaisesRegexp(Exception, "Too many extra parameters", new_interface.ask, "What type of triangle is 1 2 3 4 5 6 7?")
-
-
+        self.assertRaisesRegexp(Exception, "Too many extra parameters", new_interface.ask,
+                                "What type of triangle is 1 2 3 4 5 6 7?")

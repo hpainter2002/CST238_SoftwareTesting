@@ -1,6 +1,9 @@
 from nose2.events import Plugin
-from ReqTracer import Requirements
+
 from ReqTracer import JobStories
+from ReqTracer import Requirements
+
+#pylint: disable=C0111
 
 class MyPlugin(Plugin):
     configSection = 'req-tracer'

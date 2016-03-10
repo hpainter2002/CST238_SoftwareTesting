@@ -1,16 +1,20 @@
-from source.question_answer import QA
-from source.shape_checker import get_triangle_type, get_quadrilateral_type
+import difflib
+
 from source.answers import get_date_time_string, get_fibonacci, get_pi_digit, open_the_door, convert, my_add, \
     my_subtract, my_divide, my_multiply, my_mod, always_happy, good_time, best_restaurant, get_name, weather
-import difflib
-from git_utils import get_file_info, get_repo_root, get_untracked_files, git_execute, get_repo_url, get_repo_branch, \
-    get_diff_files, get_git_file_info, is_file_in_repo, has_diff_files, is_repo_dirty, check_valid_path, has_untracked_files
-import time
+from source.question_answer import QA
+from source.shape_checker import get_triangle_type, get_quadrilateral_type
+
+from git_utils import get_file_info, get_repo_url, get_repo_branch, \
+    get_git_file_info, is_file_in_repo
+
+#pylint: disable=C0111
 
 NOT_A_QUESTION_RETURN = "Was that a question?"
 UNKNOWN_QUESTION = "I don't know, please provide the answer"
 NO_QUESTION = 'Please ask a question first'
 NO_TEACH = 'I don\'t know about that. I was taught differently'
+
 
 class Interface(object):
     def __init__(self):
@@ -27,7 +31,7 @@ class Interface(object):
         self.question_answers = {
             'What type of triangle is ': QA('What type of triangle is ', get_triangle_type, True),
             'What type of quadrilateral is ': QA('What type of quadrilateral is ', get_quadrilateral_type),
-            'What time is it ' : QA('What time is it', get_date_time_string),
+            'What time is it ': QA('What time is it', get_date_time_string),
             'What is the n digit of fibonacci ': QA('What is the n digit of fibonacci ', get_fibonacci),
             'What is the n digit of pi ': QA('What is the n digit of pi ', get_pi_digit),
             'Please clear memory ': QA('Please clear memory ', self.clear_memory),
@@ -40,7 +44,8 @@ class Interface(object):
             'Please mod and ': QA('Please mod and ', my_mod),
             'Are you happy ': QA('Are you happy ', always_happy),
             'Where can I go to have a good time ': QA('Where can I go to have a good time ', good_time),
-            'Which is the best restaurant around here ':QA('Which is the best restaurant around here ', best_restaurant),
+            'Which is the best restaurant around here ': QA('Which is the best restaurant around here ',
+                                                            best_restaurant),
             'What is my name ': QA('What is my name ', get_name),
             'How is the weather going to be tomorrow ': QA('How is the weather going to be tomorrow ', weather),
 
@@ -54,7 +59,7 @@ class Interface(object):
         self.default_answers = {
             'What type of triangle is ': QA('What type of triangle is ', get_triangle_type, True),
             'What type of quadrilateral is ': QA('What type of quadrilateral is ', get_quadrilateral_type),
-            'What time is it ' : QA('What time is it', get_date_time_string),
+            'What time is it ': QA('What time is it', get_date_time_string),
             'What is the n digit of fibonacci ': QA('What is the n digit of fibonacci ', get_fibonacci),
             'What is the n digit of pi ': QA('What is the n digit of pi ', get_pi_digit),
             'Please clear memory ': QA('Please clear memory ', self.clear_memory),
@@ -67,7 +72,8 @@ class Interface(object):
             'Please mod and ': QA('Please mod and ', my_mod),
             'Are you happy ': QA('Are you happy ', always_happy),
             'Where can I go to have a good time ': QA('Where can I go to have a good time ', good_time),
-            'Which is the best restaurant around here ':QA('Which is the best restaurant around here ', best_restaurant),
+            'Which is the best restaurant around here ': QA('Which is the best restaurant around here ',
+                                                            best_restaurant),
             'What is my name ': QA('What is my name ', get_name),
             'How is the weather going to be tomorrow ': QA('How is the weather going to be tomorrow ', weather),
 
@@ -93,8 +99,6 @@ class Interface(object):
                         question[-1] != self.period or question.split(' ')[0] not in self.keywords:
             self.last_question = None
 
-
-
             if question.startswith("Convert"):
                 question = question.rstrip('.')
                 question = question.lstrip('Convert')
@@ -113,7 +117,7 @@ class Interface(object):
                 self.get_question_answer_string(str(question), str(convertReturn))
                 return convertReturn
 
-             # Get the question for the logger
+                # Get the question for the logger
             # self.get_question_answer_string(str(question))
 
             return self.get_question_answer_string(str(question), NOT_A_QUESTION_RETURN)
@@ -163,9 +167,8 @@ class Interface(object):
     def __add_answer(self, answer):
         self.question_answers[self.last_question] = QA(self.last_question, answer)
 
-
     def get_question_answer_string(self, question_string, answer_string=""):
         with open("Logs.txt", 'a') as  w:
-                w.write("Qestion: " + question_string + '\t | \t' + 'Answer: ' + answer_string + '\t | \t' + "Time: " '\n')
-                w.close()
+            w.write("Qestion: " + question_string + '\t | \t' + 'Answer: ' + answer_string + '\t | \t' + "Time: " '\n')
+            w.close()
         return answer_string

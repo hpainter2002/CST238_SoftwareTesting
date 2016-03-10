@@ -4,7 +4,7 @@
 
 The following example code determines if a set of 3 sides of a triangle is equilateral, scalene or iscoceles
 """
-
+#pylint: disable=C0111
 
 def get_triangle_type(a=0, b=0, c=0):
     """
@@ -49,6 +49,7 @@ def get_triangle_type(a=0, b=0, c=0):
     else:
         return "scalene"
 
+
 def get_rectangle_type(a=0, b=0, c=0, d=0):
     if not (isinstance(a, (int, float)) and isinstance(b, (int, float)) and isinstance(c, (int, float)) and isinstance(c
             , (int, float))):
@@ -65,9 +66,10 @@ def get_rectangle_type(a=0, b=0, c=0, d=0):
     else:
         return "invalid"
 
+
 def get_quadrilateral_type(side1=0, side2=0, side3=0, side4=0, ang1=0, ang2=0, ang3=0, ang4=0):
     if not (isinstance(side1, (int, float)) and isinstance(side2, (int, float)) and isinstance(side3, (int, float)) and
-            isinstance(side4, (int, float)) and isinstance(ang1, (int, float)) and isinstance(ang2, (int, float))
+                isinstance(side4, (int, float)) and isinstance(ang1, (int, float)) and isinstance(ang2, (int, float))
             and isinstance(ang3, (int, float)) and isinstance(ang4, (int, float))):
         return "invalid"
 
@@ -81,4 +83,3 @@ def get_quadrilateral_type(side1=0, side2=0, side3=0, side4=0, ang1=0, ang2=0, a
         return "rhombus"
     else:
         return "disconnected"
-

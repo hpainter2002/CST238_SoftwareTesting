@@ -26,6 +26,7 @@ Or with this lines in ``unittest.cfg`` :
 """
 from nose2.events import Plugin
 
+#pylint: disable=C0111
 
 class Coverage(Plugin):
     configSection = 'coverage'
@@ -40,21 +41,21 @@ class Coverage(Plugin):
 
         group = self.session.pluginargs
         group.add_argument(
-            '--coverage', action='append', default=[], metavar='PATH',
-            dest='coverage_source',
-            help='Measure coverage for filesystem path (multi-allowed)'
+                '--coverage', action='append', default=[], metavar='PATH',
+                dest='coverage_source',
+                help='Measure coverage for filesystem path (multi-allowed)'
         )
         group.add_argument(
-            '--coverage-report', action='append', default=[], metavar='TYPE',
-            choices=['term', 'term-missing', 'annotate', 'html', 'xml'],
-            dest='coverage_report',
-            help='Generate selected reports, available types:'
-                 ' term, term-missing, annotate, html, xml (multi-allowed)'
+                '--coverage-report', action='append', default=[], metavar='TYPE',
+                choices=['term', 'term-missing', 'annotate', 'html', 'xml'],
+                dest='coverage_report',
+                help='Generate selected reports, available types:'
+                     ' term, term-missing, annotate, html, xml (multi-allowed)'
         )
         group.add_argument(
-            '--coverage-config', action='store', default='', metavar='FILE',
-            dest='coverage_config',
-            help='Config file for coverage, default: .coveragerc'
+                '--coverage-config', action='store', default='', metavar='FILE',
+                dest='coverage_config',
+                help='Config file for coverage, default: .coveragerc'
         )
 
     def handleArgs(self, event):
@@ -79,7 +80,6 @@ class Coverage(Plugin):
                                               self.covReport,
                                               self.covConfig)
         self.covController.start()
-
 
     def afterSummaryReport(self, event):
         """Only called if active so stop coverage and produce reports."""
