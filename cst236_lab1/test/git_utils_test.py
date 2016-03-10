@@ -142,7 +142,7 @@ class TestGitUtils(TestCase):
         my_interface = Interface()
         mock_subproc_popen.return_value = process_mock
         result = my_interface.ask(
-            'What is the deal with <{}>?'.format("C:\\Users\\Hatim\\Documents\\GitHub\\HatimP\\README.md"))
+            'What is the deal with <{}>?'.format(__file__))
         self.assertEqual(result, '#AO56QU, 1/2/2016, HatimP')
 
     @requirements(['#0103'])
@@ -154,7 +154,7 @@ class TestGitUtils(TestCase):
         my_interface = Interface()
         mock_subproc_popen.return_value = process_mock
         result = my_interface.ask(
-            'What branch is <{}>?'.format("C:\\Users\\Hatim\\Documents\\GitHub\\HatimP\\README.md"))
+            'What branch is <{}>?'.format(__file__))
         self.assertEqual(result, 'master')
 
     @requirements(['#0104'])
@@ -166,7 +166,7 @@ class TestGitUtils(TestCase):
         my_interface = Interface()
         mock_subproc_popen.return_value = process_mock
         result = my_interface.ask(
-            'Where did <{}> come from?'.format("C:\\Users\\Hatim\\Documents\\GitHub\\HatimP\\README.md"))
+            'Where did <{}> come from?'.format(__file__))
         self.assertEqual(result, 'master')
 
 
