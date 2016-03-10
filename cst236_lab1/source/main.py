@@ -3,12 +3,14 @@ from source.shape_checker import get_triangle_type, get_quadrilateral_type
 from source.answers import get_date_time_string, get_fibonacci, get_pi_digit, open_the_door, convert, my_add, \
     my_subtract, my_divide, my_multiply, my_mod, always_happy, good_time, best_restaurant, get_name, weather
 import difflib
+from git_utils import get_file_info, get_repo_root, get_untracked_files, git_execute, get_repo_url, get_repo_branch, \
+    get_diff_files, get_git_file_info, is_file_in_repo, has_diff_files, is_repo_dirty, check_valid_path, has_untracked_files
+import time
 
 NOT_A_QUESTION_RETURN = "Was that a question?"
 UNKNOWN_QUESTION = "I don't know, please provide the answer"
 NO_QUESTION = 'Please ask a question first'
 NO_TEACH = 'I don\'t know about that. I was taught differently'
-
 
 class Interface(object):
     def __init__(self):
@@ -40,7 +42,13 @@ class Interface(object):
             'Where can I go to have a good time ': QA('Where can I go to have a good time ', good_time),
             'Which is the best restaurant around here ':QA('Which is the best restaurant around here ', best_restaurant),
             'What is my name ': QA('What is my name ', get_name),
-            'How is the weather going to be tomorrow ': QA('How is the weather going to be tomorrow ', weather)
+            'How is the weather going to be tomorrow ': QA('How is the weather going to be tomorrow ', weather),
+
+            'Is the <file path> in the repo?': QA('Is the in the repo ', is_file_in_repo),
+            'What is the status of ': QA('What is the status of ', get_git_file_info),
+            'What is the deal with ': QA('What is the deal with ', get_file_info),
+            'What branch is ?': QA('What branch is ', get_repo_branch),
+            'Where did <file path> come from?': QA('Where did come from', get_repo_url)
         }
 
         self.default_answers = {
@@ -61,7 +69,13 @@ class Interface(object):
             'Where can I go to have a good time ': QA('Where can I go to have a good time ', good_time),
             'Which is the best restaurant around here ':QA('Which is the best restaurant around here ', best_restaurant),
             'What is my name ': QA('What is my name ', get_name),
-            'How is the weather going to be tomorrow ': QA('How is the weather going to be tomorrow ', weather)
+            'How is the weather going to be tomorrow ': QA('How is the weather going to be tomorrow ', weather),
+
+            'Is the <file path> in the repo?': QA('Is the in the repo ', is_file_in_repo),
+            'What is the status of ': QA('What is the status of ', get_git_file_info),
+            'What is the deal with ': QA('What is the deal with ', get_file_info),
+            'What branch is ?': QA('What branch is ', get_repo_branch),
+            'Where did <file path> come from?': QA('Where did come from', get_repo_url)
         }
 
         self.last_question = None
@@ -79,6 +93,8 @@ class Interface(object):
                         question[-1] != self.period or question.split(' ')[0] not in self.keywords:
             self.last_question = None
 
+
+
             if question.startswith("Convert"):
                 question = question.rstrip('.')
                 question = question.lstrip('Convert')
@@ -91,9 +107,16 @@ class Interface(object):
                 except ValueError:
                     return "invalid input"
 
-                return convert(number, unit1, unit2)
+                convertReturn = convert(number, unit1, unit2)
+                # Get the question and answer from convert for the logger
 
-            return NOT_A_QUESTION_RETURN
+                self.get_question_answer_string(str(question), str(convertReturn))
+                return convertReturn
+
+             # Get the question for the logger
+            # self.get_question_answer_string(str(question))
+
+            return self.get_question_answer_string(str(question), NOT_A_QUESTION_RETURN)
         else:
             parsed_question = ""
             args = []
@@ -101,21 +124,27 @@ class Interface(object):
                 try:
                     args.append(float(keyword))
                 except:
-                    parsed_question += "{0} ".format(keyword)
+                    if keyword.startswith('<') and keyword.endswith('>'):
+                        args.append(keyword[1:-1])
+                    else:
+                        parsed_question += "{0} ".format(keyword)
             parsed_question = parsed_question[0:-1]
             self.last_question = parsed_question
             for answer in self.question_answers.values():
                 if difflib.SequenceMatcher(a=answer.question, b=parsed_question).ratio() >= .90:
                     if answer.function is None:
-                        return answer.value
+                        return self.get_question_answer_string(str(question), answer.value)
                     else:
                         try:
-                            return answer.function(*args)
+                            # Get the answer for the logger
+                            returnAnswer = answer.function(*args)
+                            self.get_question_answer_string(str(question), str(returnAnswer))
+                            return returnAnswer
                         except Exception as ex:
                             print(ex)
                             raise Exception("Too many extra parameters")
             else:
-                return UNKNOWN_QUESTION
+                return self.get_question_answer_string(str(question), UNKNOWN_QUESTION)
 
     def teach(self, answer=""):
         if self.last_question is None:
@@ -133,3 +162,10 @@ class Interface(object):
 
     def __add_answer(self, answer):
         self.question_answers[self.last_question] = QA(self.last_question, answer)
+
+
+    def get_question_answer_string(self, question_string, answer_string=""):
+        with open("Logs.txt", 'a') as  w:
+                w.write("Qestion: " + question_string + '\t | \t' + 'Answer: ' + answer_string + '\t | \t' + "Time: " '\n')
+                w.close()
+        return answer_string

@@ -40,6 +40,40 @@
 
 #0021 If no previous question has been asked the system shall respond with "Please ask a question first"
 
+#0100 The system shall return 'Yes' or 'No' when asked 'Is the <file path> in the repo?'
+
+#0101 The system shall return one of the following when asked 'What is the status of <file path>?'
+
+         - <file path> has been modified locally
+
+         - <file path> has not been checked in
+
+         - <file path> is a dirty repo
+
+         - <file path> is up to date
+
+#0102 The system shall return '<hash>, <date modified>, <author>' when asked 'What is the deal with <file path>?'
+
+#0103 The system shall return the repo branch when asked 'What branch is <file path>?'
+
+#0104 The system shall return the repo url when asked 'Where did <file path> come from?'
+
+#0050 When asked a question the system shall output the question to a log file.
+
+#0051 When asked a question the system shall output the answer to a log file.
+
+#0052 The system shall output questions and answers to the log file in under 50 ms.
+
+#0053 The system shall output the answer to the log file for subtracting under 50 ms.
+
+#0054 The system shall multiply 2 numbers together and provide an answer.
+
+#0055 The system shall divide 2 numbers together and provide an answer.
+
+#0056 The system shall mod 2 numbers together and provide an answer.
+
+#0057 When asked "Are you happy?" the system shall answer in under 20ms.
+
 * When I ask "What time is it?" I want to be given the current date/time so I can stay up to date
 
 * When I ask "What is the n digit of fibonacci?" I want to receive the answer so I don't have to figure it out myself

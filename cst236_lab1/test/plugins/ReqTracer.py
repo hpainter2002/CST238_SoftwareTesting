@@ -44,7 +44,7 @@ def JobStory(story):
 
 with open('C:\Users\Hatim\Documents\GitHub\HatimP\cst236_lab1\Lab_Requirements.txt') as f:
     for line in f.readlines():
-        if '#00' in line:
+        if '#0' in line:
             req_id, desc = line.split(' ', 1)
             Requirements[req_id] = RequirementTrace(desc)
         elif line.startswith("*"):
